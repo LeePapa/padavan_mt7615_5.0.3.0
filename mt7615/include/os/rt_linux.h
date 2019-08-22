@@ -158,17 +158,17 @@ typedef struct usb_ctrlrequest devctrlrequest;
 #define AP_RTMP_FIRMWARE_FILE_NAME "/etc_ro/Wireless/iNIC/RT2860AP.bin"
 #else
 #ifdef BB_SOC
-#define AP_PROFILE_PATH			"/etc/Wireless/RT2860AP_AC/RT2860AP.dat"
+#define AP_PROFILE_PATH			"/etc/Wireless/RT2860/RT2860AP.dat"
 #else
-#define AP_PROFILE_PATH			"/etc/Wireless/RT2860AP/RT2860AP.dat"
+#define AP_PROFILE_PATH			"/etc/Wireless/RT2860/RT2860AP.dat"
 #endif
-#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/Wireless/RT2860AP/RT2860AP.bin"
+#define AP_RTMP_FIRMWARE_FILE_NAME "/etc/Wireless/RT2860/RT2860AP.bin"
 #endif
 
 
-#define AP_DRIVER_VERSION			"5.0.2.0"
+#define AP_DRIVER_VERSION			"5.0.3.0"
 #ifdef MULTIPLE_CARD_SUPPORT
-#define CARD_INFO_PATH			"/etc/Wireless/RT2860AP/RT2860APCard.dat"
+#define CARD_INFO_PATH			"/etc/Wireless/RT2860/RT2860APCard.dat"
 #endif /* MULTIPLE_CARD_SUPPORT */
 #ifdef WAPP_SUPPORT
 #define WAPP_SUPPORT_VERSION		"2.0"
@@ -179,9 +179,9 @@ typedef struct usb_ctrlrequest devctrlrequest;
 
 #ifdef RTMP_RBUS_SUPPORT
 /* This used for rbus-based chip, maybe we can integrate it together. */
-#define RTMP_FIRMWARE_FILE_NAME		"/etc_ro/Wireless/RT2860AP/RT2860AP.bin"
+#define RTMP_FIRMWARE_FILE_NAME		"/etc_ro/Wireless/RT2860/RT2860AP.bin"
 #define PROFILE_PATH			"/etc/Wireless/RT2860i.dat"
-#define AP_PROFILE_PATH_RBUS		"/etc/Wireless/RT2860/RT2860.dat"
+#define AP_PROFILE_PATH_RBUS		"/etc/Wireless/RT2860/RT2860AP.dat"
 #define RT2880_AP_DRIVER_VERSION	"1.0.0.0"
 #endif /* RTMP_RBUS_SUPPORT */
 
@@ -191,8 +191,8 @@ typedef struct usb_ctrlrequest devctrlrequest;
 #define BF_GAIN_TABLE_FILE_NAME     "/tmp/.mt7615_SingleSKU_BF_Gain.dat"
 #define BF_SKU_TABLE_FILE_NAME      "/tmp/.mt7615_SingleSKU_BF.dat"
 #else
-#define SINGLE_SKU_TABLE_FILE_NAME	"/etc_ro/Wireless/RT2860AP/SingleSKU.dat"
-#define BF_SKU_TABLE_FILE_NAME      "/etc_ro/Wireless/RT2860AP/SingleSKU_BF.dat"
+#define SINGLE_SKU_TABLE_FILE_NAME	"/etc_ro/Wireless/SingleSKU_mt7615e-sku.dat"
+#define BF_SKU_TABLE_FILE_NAME      "/etc_ro/Wireless/SingleSKU_mt7615e-sku-bf.dat"
 #endif
 #endif /* SINGLE_SKU_V2 */
 
@@ -849,7 +849,7 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 
 #define SKB_BUF_HEADTAIL_RSV	(SKB_BUF_HEADROOM_RSV + SKB_BUF_TAILROOM_RSV)
 /* Need to do below miniume size protect for build_skb method, to avoid DATAABORT issue. */
-#define SKB_BUF_MINIMUN_SIZE	(1984)
+#define SKB_BUF_MINIMUN_SIZE	(2048)
 
 
 #ifdef CONFIG_WIFI_BUILD_SKB

@@ -3660,7 +3660,7 @@ RTMP_STRING *GetAuthMode(CHAR auth)
 			3.) UI needs to prepare at least 4096bytes to get the results
     ==========================================================================
 */
-#define	LINE_LEN	(4+33+20+23+9+7+7+3)	/* Channel+SSID+Bssid+Security+Signal+WiressMode+ExtCh+NetworkType*/
+#define	LINE_LEN	(4+33+20+23+9+9+7+3)	/* Channel+SSID+Bssid+Security+Signal+WiressMode+ExtCh+NetworkType*/
 
 
 #ifdef WSC_INCLUDED
@@ -3729,19 +3729,19 @@ VOID RTMPCommSiteSurveyData(
 
 	if (wireless_mode == Ndis802_11FH ||
 		wireless_mode == Ndis802_11DS)
-		sprintf(msg + strlen(msg), "%-7s", "11b");
+		sprintf(msg + strlen(msg), "%-9s", "11b");
 	else if (wireless_mode == Ndis802_11OFDM5)
-		sprintf(msg + strlen(msg), "%-7s", "11a");
+		sprintf(msg + strlen(msg), "%-9s", "11a");
 	else if (wireless_mode == Ndis802_11OFDM5_N)
-		sprintf(msg + strlen(msg), "%-7s", "11a/n");
+		sprintf(msg + strlen(msg), "%-9s", "11a/n");
 	else if (wireless_mode == Ndis802_11OFDM5_AC)
-		sprintf(msg + strlen(msg), "%-8s", "11a/n/ac");
+		sprintf(msg + strlen(msg), "%-9s", "11a/n/ac");
 	else if (wireless_mode == Ndis802_11OFDM24)
-		sprintf(msg + strlen(msg), "%-7s", "11b/g");
+		sprintf(msg + strlen(msg), "%-9s", "11b/g");
 	else if (wireless_mode == Ndis802_11OFDM24_N)
-		sprintf(msg + strlen(msg), "%-7s", "11b/g/n");
+		sprintf(msg + strlen(msg), "%-9s", "11b/g/n");
 	else
-		sprintf(msg + strlen(msg), "%-7s", "unknow");
+		sprintf(msg + strlen(msg), "%-9s", "unknow");
 
 	/* Ext Channel*/
 	if (pBss->AddHtInfoLen > 0) {
@@ -3763,7 +3763,7 @@ VOID RTMPCommSiteSurveyData(
 	/* SSID Length */
 	sprintf(msg + strlen(msg), " %-8d", pBss->SsidLen);
 
-	sprintf(msg + strlen(msg), "\n");
+	//sprintf(msg + strlen(msg), "\n");
 	return;
 }
 
@@ -4051,8 +4051,8 @@ max_len += WPS_LINE_LEN;
 #endif
 max_len += BCNREP_LINE_LEN;
 
-#ifdef APCLI_OWE_SUPPORT
-max_len += OWETRANSIE_LINE_LEN;
+//#ifdef APCLI_OWE_SUPPORT
+//max_len += OWETRANSIE_LINE_LEN;
 
 #endif
 	os_alloc_mem(NULL, (UCHAR **)&this_char, wrq->u.data.length + 1);
@@ -4111,19 +4111,15 @@ max_len += OWETRANSIE_LINE_LEN;
 		return;
 	}
 
-	sprintf(msg, "\n");
-	sprintf(msg + strlen(msg), "Total=%-4d", pAdapter->ScanTab.BssNr);
-	sprintf(msg + strlen(msg), "\n");
-	sprintf(msg + strlen(msg), "%-4s%-4s%-33s%-20s%-23s%-9s%-7s%-7s%-3s%-8s\n",
-			"No", "Ch", "SSID", "BSSID", "Security", "Siganl(%)", "W-Mode", " ExtCH", " NT", " SSID_Len");
+	//sprintf(msg, "\n");
+	//sprintf(msg + strlen(msg), "Total=%-4d", pAdapter->ScanTab.BssNr);
+	//sprintf(msg + strlen(msg), "\n");
+sprintf(msg + strlen(msg), "%-4s%-4s%-33s%-20s%-23s%-9s%-9s%-7s%-3s%-8s\n",
+			"No", "Ch", "SSID", "BSSID", "Security", "Signal(%)", "W-Mode", " ExtCH", " NT", " SSID_Len");
 #ifdef WSC_INCLUDED
 	sprintf(msg + strlen(msg) - 1, "%-4s%-5s\n", " WPS", " DPID");
 #endif /* WSC_INCLUDED */
-	sprintf(msg + strlen(msg) - 1, "%-8s\n", " BcnRept");
-#ifdef APCLI_OWE_SUPPORT
-		sprintf(msg + strlen(msg) - 1, "%-10s\n", " OWETranIe");
-#endif /* APCLI_OWE_SUPPORT */
-
+	
 	WaitCnt = 0;
 
 	while ((ScanRunning(pAdapter) == TRUE) && (WaitCnt++ < 200))
@@ -4135,13 +4131,6 @@ max_len += OWETRANSIE_LINE_LEN;
 
 		if (pBss->Channel == 0)
 			break;
-
-
-#ifdef APCLI_OWE_SUPPORT
-		if (pBss->hide_owe_bss == TRUE) {
-			continue;
-		}
-#endif
 
 		if ((strlen(msg) + 100) >= BufLen)
 			break;
@@ -4165,16 +4154,6 @@ max_len += OWETRANSIE_LINE_LEN;
 			sprintf(msg + strlen(msg), "%-5s", " ");
 
 #endif /* WSC_INCLUDED */
-		sprintf(msg + strlen(msg), "%-8s", pBss->FromBcnReport ? " YES" : " NO");
-
-#ifdef APCLI_OWE_SUPPORT
-	if (pBss->bhas_owe_trans_ie)
-		sprintf(msg + strlen(msg), "%-10s\n", " YES");
-	else
-		sprintf(msg + strlen(msg), "%-10s\n", " NO");
-#else
-	sprintf(msg + strlen(msg), "\n");
-#endif
 
 	}
 
@@ -4314,7 +4293,7 @@ VOID RTMPIoctlGetSiteSurvey(
 			sprintf(msg+strlen(msg), "%-5s", " ");
 #endif /* WSC_INCLUDED */
 
-		sprintf(msg+strlen(msg), "%-7s\n", pBss->FromBcnReport ? " YES" : " NO");
+
 
 	}
 
@@ -4342,7 +4321,7 @@ VOID RTMPIoctlGetSiteSurvey(
 }
 #endif /* CUSTOMER_DCC_FEATURE */
 
-#endif
+
 
 USHORT RTMPGetLastTxRate(PRTMP_ADAPTER pAd, MAC_TABLE_ENTRY *pEntry)
 {
@@ -13985,3 +13964,4 @@ INT32 ShowRssiThInfo(RTMP_ADAPTER *pAd, RTMP_STRING *arg)
 	return TRUE;
 }
 #endif /* end of ETSI_RX_BLOCKER_SUPPORT */
+
