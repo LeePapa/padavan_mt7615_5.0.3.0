@@ -1,0 +1,2 @@
+#define SSURV_LINE_LEN_WPS (4+4+33+20+23+9+9+7+3+8+4+5+8)
+#define SSURV_LINE_LEN (4+4+33+20+23+9+9+7+3+8+8)
