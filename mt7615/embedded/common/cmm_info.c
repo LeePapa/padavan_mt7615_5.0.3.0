@@ -4114,7 +4114,7 @@ max_len += BCNREP_LINE_LEN;
 	//sprintf(msg, "\n");
 	//sprintf(msg + strlen(msg), "Total=%-4d", pAdapter->ScanTab.BssNr);
 	//sprintf(msg + strlen(msg), "\n");
-sprintf(msg + strlen(msg), "%-4s%-4s%-33s%-20s%-23s%-9s%-9s%-7s%-3s%-8s\n",
+sprintf(msg + strlen(msg), "%-3s%-4s%-33s%-20s%-23s%-9s%-9s%-7s%-3s%-9s\n",
 			"No", "Ch", "SSID", "BSSID", "Security", "Signal(%)", "W-Mode", " ExtCH", " NT", " SSID_Len");
 #ifdef WSC_INCLUDED
 	sprintf(msg + strlen(msg) - 1, "%-4s%-5s\n", " WPS", " DPID");
